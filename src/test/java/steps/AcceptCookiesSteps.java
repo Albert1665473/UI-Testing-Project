@@ -22,34 +22,39 @@ public class AcceptCookiesSteps {
 	public static void theUserIsInTheHomePage() {
 		System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.navigate().to("https://www.pccomponentes.com");
+		driver.navigate().to("https://www.ldlc.com");
 	}
 	
 	@When("the user clicks in the accept cookies option")
-	public void theUserClicksInTheAcceptCookiesOption() {
-		driver.findElement(By.id("cookiesAcceptAll")).click();
+	public void theUserClicksInTheAcceptCookiesOption() throws InterruptedException {
+		
+		Thread.sleep(2000);
+		
+		driver.findElement(By.id("cookieConsentAcceptButton")).click();
 	}
 	
 	@Then("the home page appears")
 	public void theHomePageAppears() {
-		WebElement body = driver.findElement(By.id("root"));
+		WebElement body = driver.findElement(By.xpath("/html/body"));
 		assertTrue(body != null);
 		
-		WebElement header = driver.findElement(By.id("header-top"));
+		WebElement header = driver.findElement(By.xpath("/html/body/header"));
 		assertTrue(header != null);
 				
-		WebElement div1 = driver.findElement(By.xpath("/html/body/div[2]/div[1]"));
+		WebElement div1 = driver.findElement(By.xpath("/html/body/div[4]/section[1]"));
 		assertTrue(div1 != null);
 		
-		WebElement div2 = driver.findElement(By.xpath("/html/body/div[2]/main"));
+		WebElement div2 = driver.findElement(By.xpath("/html/body/div[4]/section[2]"));
 		assertTrue(div2 != null);
+		
+		WebElement footer = driver.findElement(By.xpath("/html/body/footer"));
+		assertTrue(footer != null);
 	}
 	
 	@Then("the accept cookies box disappears")
 	public void theAcceptCookiesBoxDisappears() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
-		
-		Boolean cookies =  wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("cookiesAcceptAll")));
+		Boolean cookies =  wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("cookieConsentAcceptButton")));
 		assertTrue(cookies);
 	}
 	
