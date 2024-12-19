@@ -22,7 +22,7 @@ public class AcceptCookiesSteps {
 	public static void theUserIsInTheHomePage() {
 		System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.navigate().to("https://www.ldlc.com");
+		driver.navigate().to("https://www.decathlon.es");
 	}
 	
 	@When("the user clicks in the accept cookies option")
@@ -30,31 +30,31 @@ public class AcceptCookiesSteps {
 		
 		Thread.sleep(2000);
 		
-		driver.findElement(By.id("cookieConsentAcceptButton")).click();
+		driver.findElement(By.id("didomi-notice-agree-button")).click();
 	}
 	
 	@Then("the home page appears")
 	public void theHomePageAppears() {
-		WebElement body = driver.findElement(By.xpath("/html/body"));
+		WebElement body = driver.findElement(By.xpath("/html/body/div[2]/main"));
 		assertTrue(body != null);
 		
-		WebElement header = driver.findElement(By.xpath("/html/body/header"));
+		WebElement header = driver.findElement(By.id("header"));
 		assertTrue(header != null);
 				
-		WebElement div1 = driver.findElement(By.xpath("/html/body/div[4]/section[1]"));
+		WebElement div1 = driver.findElement(By.id("Productos-recomendados-home"));
 		assertTrue(div1 != null);
 		
-		WebElement div2 = driver.findElement(By.xpath("/html/body/div[4]/section[2]"));
+		WebElement div2 = driver.findElement(By.xpath("/html/body/div[2]/main/section[8]/div"));
 		assertTrue(div2 != null);
 		
-		WebElement footer = driver.findElement(By.xpath("/html/body/footer"));
+		WebElement footer = driver.findElement(By.xpath("/html/body/div[2]/footer"));
 		assertTrue(footer != null);
 	}
 	
 	@Then("the accept cookies box disappears")
 	public void theAcceptCookiesBoxDisappears() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
-		Boolean cookies =  wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("cookieConsentAcceptButton")));
+		Boolean cookies =  wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("didomi-notice-agree-button")));
 		assertTrue(cookies);
 	}
 	
