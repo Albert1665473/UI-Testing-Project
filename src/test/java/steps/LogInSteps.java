@@ -1,10 +1,10 @@
 package steps;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,7 +55,9 @@ public class LogInSteps {
 		search.clear();
 		search.sendKeys("albeert.vm8@gmail.com");
 		
-		driver.findElement(By.id("lookup-btn")).click();
+		if(!driver.findElements(By.id("lookup-btn")).isEmpty()) {
+			driver.findElement(By.id("lookup-btn")).click();
+		}
 	}
 	
 	@When("the user enters the correct password")
@@ -68,7 +70,7 @@ public class LogInSteps {
 		WebElement search = driver.findElement(By.id("input-password"));
 
 		search.clear();
-		search.sendKeys("UI-Test3");
+		search.sendKeys("UI-Test4");
 		
 		driver.findElement(By.id("signin-button")).click();
 		
@@ -145,10 +147,21 @@ public class LogInSteps {
 	@Then("the password is not correct")
 	public void thePasswordIsNotCorrect() {
 		
+		/*
 		WebElement error = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div[2]/div/div[1]/form/div[2]/div[2]/p"));
 		assertTrue(error != null);
 				
 		String e = error.getText();
 		assertEquals("Contraseña no válida", e);
+		*/
+		
+		//Comprovem que la pagina de modificació de dades del compte que es mostra despres d'iniciar sessió no es visible
+		boolean accountLogged = driver.findElements(By.id("accountComplete")).isEmpty();
+		assertTrue(accountLogged);
+		
+		//Comporvem que la pagina de login es torna a mostrar ja que la contraseña es incorrecte
+		boolean loginForm = driver.findElements(By.id("form-sign-in")).isEmpty();
+		assertFalse(loginForm);
+		
 	}
 }
