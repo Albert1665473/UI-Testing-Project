@@ -13,7 +13,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -29,7 +28,7 @@ public class SearchProductSteps {
 		WebElement search = driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/nav/div[1]/div/form/div/input"));
 
 		search.clear();
-		search.sendKeys("powerade");
+		search.sendKeys("chaqueta esqui");
 	}
 	
 	@When("the user clicks the search button")
@@ -57,7 +56,7 @@ public class SearchProductSteps {
 		assertTrue(elementSearched != null);
 		
 		String text2 = elementSearched.getText();
-		assertTrue(text2.contains("powerade"));
+		assertTrue(text2.contains("chaqueta esqui"));
 		
 		WebElement results = driver.findElement(By.xpath("/html/body/div[2]/main/div[1]/div/div/div[3]/span"));
 		assertTrue(results != null);
@@ -86,7 +85,7 @@ public class SearchProductSteps {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/main/div[2]/section[2]/div")));
 		
-		driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/section[2]/div/div[2]/div[3]/div[1]/div/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/section[2]/div/div[1]/div[3]/div[1]/div/a")).click();
 	}
 	
 	@Then("the product detail info appears")
@@ -105,29 +104,37 @@ public class SearchProductSteps {
 		assertTrue(title != null);
 		
 		String text = title.getText();
-		assertTrue(text.contains("Bebida Isotónica Powerade Ice Storm 500 Ml"));
+		assertTrue(text.contains("Chaqueta de esquí y nieve impermeable Hombre Wedze Ski-P JKT100"));
 		
 		//Comprovem que el preu es el correcte i apareix
 		WebElement price = driver.findElement(By.xpath("/html/body/div[2]/main/article/div[2]/section/div[1]/div/div/div/span"));
 		assertTrue(price != null);
 		
 		String p = price.getText();
-		assertTrue(p.contains("1,49 €"));
+		assertEquals(p, "39,99 €");
 		
 		//Comprovem que la imatge carrega
 		WebElement img = driver.findElement(By.xpath("/html/body/div[2]/main/article/div[1]/div/div/ul/li/button/img"));
 		assertTrue(img != null);
 		
 		//Comprovem que les caracteristiques del producte apareixen
-		WebElement caracteristics = driver.findElement(By.id("ProductBenefits-f5a0be5b313a926e1b2cce79f6b16c828db4dd5a"));
+		WebElement caracteristics = driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[1]/div"));
 		assertTrue(caracteristics != null);
 		
+		WebElement caracteristicsElement = driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[1]/h2/span"));
+		assertTrue(caracteristicsElement != null);
+		
+		String c = caracteristicsElement.getText();
+		assertTrue(c.contains("Características principales"));
 		
 		//Comprovem que la informació del producte apareix i el titol es correcte
-		WebElement info = driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/h2"));
+		WebElement info = driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/div"));
 		assertTrue(info != null);
 		
-		String i = info.getText();
+		WebElement infoElement = driver.findElement(By.xpath("/html/body/div[2]/main/div[2]/div[2]/h2"));
+		assertTrue(infoElement != null);
+		
+		String i = infoElement.getText();
 		assertTrue(i.contains("Información técnica"));
 		
 		//Comprovem que el botó del carret apareix
