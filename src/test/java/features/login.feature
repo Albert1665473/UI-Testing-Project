@@ -18,7 +18,6 @@ And the user enters the wrong password
 Then the password is not correct
 
 Scenario: User Login Successful
-Given the user is at the login page
-When the user enters the correct email
-And the user enters the correct password
+Given the password is not correct
+When the user enters the correct password
 Then the login was made successfuly

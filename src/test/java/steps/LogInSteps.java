@@ -17,8 +17,6 @@ import io.cucumber.java.en.When;
 public class LogInSteps {
 	WebDriver driver = AcceptCookiesSteps.getDriver();
 	
-	WebElement contrasenyaIncorrecta = null;
-	
 	@When("the user clicks in the account button")
 	public void theUserClicksInTheAccountButton() {
 		driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/nav/ul/li[3]/div/a")).click();
@@ -45,70 +43,22 @@ public class LogInSteps {
 		assertEquals("Correo electrónico", m);
 		
 	}
-
-	@When("the user enters the correct email")
-	public void theUserEntersTheCorrectEmail() {
-		driver.findElement(By.id("input-email")).click();
-		
-		WebElement search = driver.findElement(By.id("input-email"));
-
-		search.clear();
-		search.sendKeys("albeert.vm8@gmail.com");
-		
-		if(!driver.findElements(By.id("lookup-btn")).isEmpty()) {
-			driver.findElement(By.id("lookup-btn")).click();
-		}
-	}
-	
-	@When("the user enters the correct password")
-	public void theUseEntersTheCorrectPassword() {
-		
-		//Esperem a que carregui el camp d'introduïr contrasenya
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div/div[2]/div/div[1]/form/div[2]")));
-		
-		WebElement search = driver.findElement(By.id("input-password"));
-
-		search.clear();
-		search.sendKeys("UI-Test4");
-		
-		driver.findElement(By.id("signin-button")).click();
-		
-	}
-	
-	@Then("the login was made successfuly")
-	public void theLoginWasMadeSuccessfuly() {
-		
-		//Esperem a que carregui el camp de configuració de perfil
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/main/div/section/section/div")));
-		
-		WebElement WelcomeSection = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/section/div"));
-		assertTrue(WelcomeSection != null);
-		
-		WebElement WelcomeMssg = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/section/div/div/h1"));
-		assertTrue(WelcomeMssg != null);
-		
-		String w = WelcomeMssg.getText();
-		assertEquals("¡Bienvenido/a!", w);
-		
-		WebElement AccountInfo = driver.findElement(By.id("accountComplete"));
-		assertTrue(AccountInfo != null);
-		
-	}
 	
 	@When("the user enters the wrong email")
-	public void theUserEntersTheWrongEmail() {
+	public void theUserEntersTheWrongEmail(){
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-email")));
 		
 		driver.findElement(By.id("input-email")).click();
 		
 		WebElement search = driver.findElement(By.id("input-email"));
 
 		search.clear();
-		search.sendKeys("wrongemail@gmail.com");
+		
+		search.sendKeys("wrongemail@sdkjcnewcnw");
 		
 		driver.findElement(By.id("lookup-btn")).click();
-		
 	}
 	
 	@Then("the email is not correct")
@@ -123,12 +73,11 @@ public class LogInSteps {
 		assertTrue(error != null);
 		
 		String e = error.getText();
-		assertEquals("No podemos encontrar ninguna cuenta con este correo electrónico. "
-				+ "Inicia sesión con otra dirección de correo electrónico o puedes crear una cuenta.", e);
+		assertEquals("Formato de correo electrónico no válido.", e);
 	}
 
 	@When("the user enters the wrong password")
-	public void theUserEntersTheWrongPassword() {
+	public void theUserEntersTheWrongPassword(){
 		//Esperem a que carregui el camp d'introduïr contrasenya
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div/div[2]/div/div[1]/form/div[2]/div[1]")));
@@ -138,14 +87,14 @@ public class LogInSteps {
 
 		search.clear();
 		search.sendKeys("password1234");
-	    
+		
 		driver.findElement(By.id("signin-button")).click();
 		
 				
 	}
 	
 	@Then("the password is not correct")
-	public void thePasswordIsNotCorrect() {
+	public void thePasswordIsNotCorrect(){
 		
 		/*
 		WebElement error = driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div/div[2]/div/div[1]/form/div[2]/div[2]/p"));
@@ -163,5 +112,78 @@ public class LogInSteps {
 		boolean loginForm = driver.findElements(By.id("form-sign-in")).isEmpty();
 		assertFalse(loginForm);
 		
+	}
+	
+	@When("the user enters the correct email")
+	public void theUserEntersTheCorrectEmail(){
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("input-email")));
+		
+		WebElement email = driver.findElement(By.id("input-email"));
+		
+		email.click();
+		
+		email.clear();
+		
+		email.sendKeys("albeert.vm8@gmail.com");
+
+		driver.findElement(By.id("lookup-btn")).click();
+	
+	}
+	
+	@When("the user enters the correct password")
+	public void theUseEntersTheCorrectPassword() throws InterruptedException {
+		
+	
+		//Esperem a que carregui el camp d'introduïr contrasenya
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-password")));
+		
+		WebElement search = driver.findElement(By.id("input-password"));
+		
+		Thread.sleep(2000);
+		
+		search.click();
+
+		search.clear();
+		search.sendKeys("UI-Testing2");
+		
+		driver.findElement(By.id("signin-button")).click();
+		
+	}
+	
+	@Then("the login was made successfuly")
+	public void theLoginWasMadeSuccessfuly() throws InterruptedException {
+		
+		//Esperem a que carregui el camp de configuració de perfil
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("layout-content")));
+		
+		Thread.sleep(4000);
+		
+		WebElement WelcomeSection = driver.findElement(By.id("layout-content"));
+		assertTrue(WelcomeSection != null);
+		
+		WebElement nameAccount = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[1]/div/div/div/header/button/span[1]/span/span[1]/span[1]"));
+		assertTrue(nameAccount != null);
+		
+		String w = nameAccount.getText();
+		assertEquals("Albert Vacas", w);
+		
+		WebElement lateralMenuConfig = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[1]/div/div/div"));
+		assertTrue(lateralMenuConfig != null);
+		
+		WebElement emailAccount = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[1]/div/div/div/header/button/span[1]/span/span[2]"));
+		assertTrue(emailAccount != null);
+		
+		String e = emailAccount.getText();
+		assertEquals("albeert.vm8@gmail.com", e);
+		
+		WebElement points = driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[1]/div/div/div/header/span/span"));
+		assertTrue(points != null);
+		
+		String p = points.getText();
+		assertEquals("200 puntos", p);
 	}
 }
