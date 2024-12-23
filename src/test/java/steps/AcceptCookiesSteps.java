@@ -22,13 +22,14 @@ public class AcceptCookiesSteps {
 	public static void theUserIsInTheHomePage() {
 		System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.navigate().to("https://www.decathlon.es");
+		driver.navigate().to("https://www.decathlon.es/es/");
 	}
 	
 	@When("the user clicks in the accept cookies option")
-	public void theUserClicksInTheAcceptCookiesOption() throws InterruptedException {
+	public void theUserClicksInTheAcceptCookiesOption() {
 		
-		Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("didomi-notice-agree-button")));
 		
 		driver.findElement(By.id("didomi-notice-agree-button")).click();
 	}
