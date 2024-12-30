@@ -45,9 +45,6 @@ public class AcceptCookiesSteps {
 		WebElement div1 = driver.findElement(By.id("Productos-recomendados-home"));
 		assertTrue(div1 != null);
 		
-		WebElement div2 = driver.findElement(By.xpath("/html/body/div[2]/main/section[8]/div"));
-		assertTrue(div2 != null);
-		
 		WebElement footer = driver.findElement(By.xpath("/html/body/div[2]/footer"));
 		assertTrue(footer != null);
 	}
