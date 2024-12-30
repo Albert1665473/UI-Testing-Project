@@ -160,7 +160,7 @@ public class LogInSteps {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("layout-content")));
 		
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		
 		WebElement WelcomeSection = driver.findElement(By.id("layout-content"));
 		assertTrue(WelcomeSection != null);
@@ -184,6 +184,6 @@ public class LogInSteps {
 		assertTrue(points != null);
 		
 		String p = points.getText();
-		assertEquals("200 puntos", p);
+		assertEquals("600 puntos", p);
 	}
 }

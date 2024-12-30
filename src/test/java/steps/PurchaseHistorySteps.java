@@ -27,9 +27,9 @@ public class PurchaseHistorySteps {
 	public void theUserClicksOnTheLastPurchase() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div/div[2]/div/span/a")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div[2]/div[2]/div/span/a")));
 		
-		driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div/div[2]/div/span/a")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/main/div/section/div/div/div[2]/div/div[5]/div/div[2]/div[2]/div/span/a")).click();
 	}
 	
 	@Then("the purchase information shows")

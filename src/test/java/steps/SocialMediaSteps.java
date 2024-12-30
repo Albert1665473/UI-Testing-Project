@@ -20,7 +20,7 @@ public class SocialMediaSteps {
 	
 	WebDriver driver = AcceptCookiesSteps.getDriver();
 	
-	@When("clicks on the intagram social media")
+	@When("clicks on the instagram social media")
 	public void clicksOnTheIntagramSocialMedia() {
 		
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -50,8 +50,13 @@ public class SocialMediaSteps {
 		
 		driver.findElement(By.xpath("/html/body/div[5]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]")).click();
 		
+		
 		Thread.sleep(3000);
-
+		
+		if(!driver.findElements(By.xpath("/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div")).isEmpty()) {
+			driver.findElement(By.xpath("/html/body/div[6]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]")).click();
+		}
+		
 		WebElement instagramName = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[2]/div/div[2]/section/main/div/header/section/div[1]/div[1]/h2"));
 		assertTrue(instagramName != null);
 		
